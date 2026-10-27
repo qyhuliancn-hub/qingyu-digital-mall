@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>轻域数字商城系统 · 多商户数字商品自动寄售平台</title>
+  <meta name="description" content="轻域数字商城系统：多商户、数字商品、自动发货、订单售后、资金对账与独立部署。查看真实界面并购买商业授权。">
+  <meta property="og:title" content="轻域数字商城系统 · 多商户数字商品自动寄售平台">
+  <meta property="og:description" content="一套系统完成数字商品的展示、支付、自动交付与售后。">
+  <meta property="og:image" content="assets/cover.jpg">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <style>
+    :root {
+      --ink: #0b1726;
+      --muted: #60758b;
+      --line: #dbe7f2;
+      --blue: #1769e8;
+      --blue-soft: #eaf3ff;
+      --navy: #08111f;
+      --mint: #18b894;
+      --paper: #f6f9fc;
+      --white: #fff;
+      --shadow: 0 24px 60px rgba(20, 58, 94, .12);
+      --radius: 24px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--white);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.65;
+    }
+    a { color: inherit; }
+    img { max-width: 100%; display: block; }
+    .wrap { width: min(1160px, calc(100% - 48px)); margin: 0 auto; }
+    .topbar {
+      background: var(--navy);
+      color: #a8bad0;
+      font-size: 12px;
+      letter-spacing: .02em;
+      text-align: center;
+      padding: 8px 16px;
+    }
+    .topbar b { color: #6ee7cb; }
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      background: rgba(255, 255, 255, .88);
+      border-bottom: 1px solid rgba(219, 231, 242, .8);
+      backdrop-filter: blur(18px);
+    }
+    .nav-inner { height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+    .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; min-width: 0; }
+    .brand img { width: 38px; height: 38px; border-radius: 12px; box-shadow: 0 8px 18px rgba(23, 105, 232, .18); }
+    .brand strong { display: block; font-size: 16px; letter-spacing: -.02em; }
+    .brand small { display: block; color: #8497aa; font-size: 10px; letter-spacing: .12em; margin-top: 1px; }
+    .nav-links { display: flex; gap: 27px; align-items: center; }
+    .nav-links a { color: #4f687f; text-decoration: none; font-size: 13px; font-weight: 700; }
+    .nav-links a:hover { color: var(--blue); }
+    .nav-actions { display: flex; gap: 10px; align-items: center; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 44px;
+      padding: 0 18px;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: -.01em;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+      white-space: nowrap;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { color: #fff; background: linear-gradient(135deg, #1d7cf2, #0b57c8); box-shadow: 0 12px 26px rgba(20, 103, 220, .22); }
+    .btn-primary:hover { box-shadow: 0 16px 32px rgba(20, 103, 220, .28); }
+    .btn-ghost { color: #1d4f81; background: #fff; border-color: #d5e4f2; }
+    .btn-dark { color: #fff; background: #0c1b2c; }
+    .btn-light { color: #0d2b4b; background: #fff; }
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 72px 0 52px;
+      background:
+        radial-gradient(900px 420px at 78% 12%, rgba(30, 121, 255, .13), transparent 62%),
+        radial-gradient(560px 320px at 16% 4%, rgba(24, 184, 148, .09), transparent 60%),
+        linear-gradient(180deg, #f8fbff 0%, #edf5fb 100%);
+    }
+    .hero::before {
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(37, 98, 160, .035) 1px, transparent 1px), linear-gradient(90deg, rgba(37, 98, 160, .035) 1px, transparent 1px);
+      background-size: 48px 48px;
+      content: "";
+      mask-image: linear-gradient(180deg, #000 0%, transparent 78%);
+      pointer-events: none;
+    }
+    .hero-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1.04fr) minmax(0, .96fr); gap: 38px; align-items: center; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; color: #53708b; font-size: 11px; font-weight: 900; letter-spacing: .11em; text-transform: uppercase; }
+    .eyebrow i { width: 7px; height: 7px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 0 4px rgba(24, 184, 148, .12); }
+    .hero h1 { margin: 17px 0 18px; font-size: clamp(34px, 4.5vw, 52px); line-height: 1.12; letter-spacing: -.055em; font-weight: 900; }
+    .hero h1 span { color: var(--blue); white-space: nowrap; }
+    .hero-copy > p { max-width: 520px; margin: 0; color: #5d748b; font-size: 14px; line-height: 1.9; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 11px; margin-top: 27px; }
+    .hero-note { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 17px; color: #8b9daf; font-size: 11px; }
+    .hero-note span { padding: 4px 9px; border: 1px solid #dbe7f2; border-radius: 999px; background: rgba(255, 255, 255, .6); }
+    .hero-visual { position: relative; min-height: 420px; }
+    .browser {
+      overflow: hidden;
+      border: 1px solid rgba(203, 220, 236, .92);
+      border-radius: 20px;
+      background: #fff;
+      box-shadow: 0 32px 80px rgba(27, 71, 112, .16);
+      transform: translateY(12px);
+    }
+    .browser-bar { height: 34px; display: flex; align-items: center; gap: 6px; padding: 0 13px; border-bottom: 1px solid #e7eff6; background: #f7fafd; }
+    .browser-bar i { width: 7px; height: 7px; border-radius: 50%; background: #cfdce8; }
+    .browser-bar i:nth-child(1) { background: #ff9c95; }
+    .browser-bar i:nth-child(2) { background: #ffd277; }
+    .browser-bar i:nth-child(3) { background: #70d9a8; }
+    .browser-bar span { flex: 1; margin-left: 8px; padding: 3px 9px; border: 1px solid #e3edf6; border-radius: 5px; color: #8ba0b4; background: #fff; font-size: 8px; }
+    .browser img { width: 100%; }
+    .phone {
+      position: absolute;
+      right: -6px;
+      bottom: -18px;
+      width: 155px;
+      overflow: hidden;
+      border: 5px solid #0b1726;
+      border-radius: 25px;
+      background: #0b1726;
+      box-shadow: 0 26px 48px rgba(6, 20, 38, .28);
+    }
+    .phone img { width: 100%; border-radius: 19px; }
+    .phone::before { position: absolute; z-index: 2; top: 7px; left: 50%; width: 40px; height: 10px; border-radius: 0 0 8px 8px; background: #0b1726; content: ""; transform: translateX(-50%); }
+    .floating-note {
+      position: absolute;
+      top: 19px;
+      left: -18px;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 12px;
+      border: 1px solid rgba(207, 224, 238, .9);
+      border-radius: 13px;
+      background: rgba(255, 255, 255, .9);
+      box-shadow: 0 15px 32px rgba(25, 66, 105, .11);
+      color: #4d6a84;
+      font-size: 10px;
+      font-weight: 800;
+      backdrop-filter: blur(10px);
+    }
+    .floating-note i { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 9px; background: #e9f8f4; color: #0c9477; font-style: normal; }
+    .stats { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; margin-top: 56px; overflow: hidden; border: 1px solid #dbe7f2; border-radius: 18px; background: #dbe7f2; box-shadow: 0 16px 40px rgba(31, 73, 118, .06); }
+    .stats div { padding: 18px 20px; background: rgba(255, 255, 255, .9); }
+    .stats b { display: block; color: #1a3e62; font-size: 18px; letter-spacing: -.03em; }
+    .stats span { display: block; margin-top: 2px; color: #8a9caf; font-size: 10px; }
+    section { padding: 88px 0; }
+    .section-head { max-width: 700px; margin: 0 auto 38px; text-align: center; }
+    .kicker { color: #2875ca; font-size: 10px; font-weight: 900; letter-spacing: .17em; }
+    .section-head h2 { margin: 10px 0 12px; font-size: clamp(28px, 3.6vw, 40px); line-height: 1.18; letter-spacing: -.045em; }
+    .section-head p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.85; }
+    .gallery { display: grid; grid-template-columns: 1.2fr .8fr; gap: 16px; align-items: stretch; }
+    .shot { overflow: hidden; border: 1px solid #dce8f3; border-radius: 18px; background: #fff; box-shadow: 0 18px 42px rgba(24, 68, 108, .08); }
+    .shot img { width: 100%; height: 100%; object-fit: cover; }
+    .shot-main { grid-row: span 2; }
+    .shot figcaption { padding: 13px 15px; color: #63798e; font-size: 10px; }
+    .shot figcaption b { display: block; color: #1c3b58; font-size: 12px; }
+    .mobile-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+    .mobile-pair .shot img { height: 430px; object-fit: cover; object-position: top; }
+    .mobile-pair .shot figcaption { padding-top: 10px; }
+    .feature-section { background: var(--paper); border-top: 1px solid #e6eff7; border-bottom: 1px solid #e6eff7; }
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .feature { padding: 25px 23px; border: 1px solid #dbe7f2; border-radius: 19px; background: #fff; box-shadow: 0 12px 30px rgba(31, 73, 118, .045); }
+    .feature .num { display: grid; place-items: center; width: 33px; height: 33px; border-radius: 10px; background: var(--blue-soft); color: var(--blue); font-size: 10px; font-weight: 900; }
+    .feature h3 { margin: 16px 0 8px; font-size: 16px; letter-spacing: -.02em; }
+    .feature p { margin: 0; color: #6c8195; font-size: 12px; line-height: 1.8; }
+    .flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 8px; }
+    .flow-item { position: relative; padding: 0 20px 0 0; }
+    .flow-item:not(:last-child)::after { position: absolute; top: 14px; right: 6px; left: 40px; height: 1px; background: linear-gradient(90deg, #bcd4e9, #e7f0f7); content: ""; }
+    .flow-item b { position: relative; z-index: 1; display: grid; place-items: center; width: 29px; height: 29px; border: 1px solid #cfe0ef; border-radius: 50%; color: var(--blue); background: #fff; font-size: 10px; }
+    .flow-item h3 { margin: 15px 0 7px; font-size: 14px; }
+    .flow-item p { margin: 0; color: #70869a; font-size: 11px; line-height: 1.75; }
+    .audience { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .audience div { padding: 19px; border: 1px solid #dce8f3; border-radius: 16px; background: #fff; }
+    .audience b { display: block; font-size: 13px; }
+    .audience span { display: block; margin-top: 5px; color: #7b8ea2; font-size: 10px; line-height: 1.7; }
+    .cta-band { position: relative; overflow: hidden; padding: 62px 0; color: #e9f3ff; background: radial-gradient(700px 340px at 80% 10%, rgba(42, 122, 255, .36), transparent 62%), linear-gradient(135deg, #07111f, #0a1e36); }
+    .cta-band::after { position: absolute; inset: 0; background-image: linear-gradient(rgba(255, 255, 255, .035) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .035) 1px, transparent 1px); background-size: 46px 46px; content: ""; pointer-events: none; }
+    .cta-inner { position: relative; z-index: 1; display: flex; justify-content: space-between; gap: 30px; align-items: center; }
+    .cta-inner h2 { margin: 0 0 9px; font-size: clamp(27px, 3.2vw, 38px); letter-spacing: -.045em; }
+    .cta-inner p { margin: 0; color: #9db3c9; font-size: 12px; }
+    .cta-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+    .faq { display: grid; gap: 9px; max-width: 900px; margin: 0 auto; }
+    details { padding: 16px 18px; border: 1px solid #dce8f3; border-radius: 14px; background: #fff; }
+    summary { cursor: pointer; font-size: 13px; font-weight: 800; list-style: none; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { float: right; color: #9ab0c2; content: "+"; font-size: 18px; font-weight: 400; line-height: 1; }
+    details[open] summary::after { content: "–"; }
+    details p { margin: 10px 0 0; color: #6b8195; font-size: 12px; line-height: 1.8; }
+    footer { padding: 38px 0 30px; border-top: 1px solid #e5eef6; color: #8a9daf; font-size: 10px; background: #fff; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; align-items: flex-start; }
+    .footer-inner strong { display: block; margin-bottom: 6px; color: #31506d; font-size: 12px; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 16px; justify-content: flex-end; }
+    .footer-links a { color: #5b7894; text-decoration: none; }
+    .footer-links a:hover { color: var(--blue); }
+    .filing { margin-top: 18px; padding-top: 15px; border-top: 1px solid #edf3f8; }
+    .filing a { color: #7b91a5; text-decoration: none; }
+    @media (max-width: 980px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 28px; }
+      .hero-copy > p { max-width: 680px; }
+      .hero-visual { min-height: 0; }
+      .phone { width: 128px; right: 8px; bottom: -12px; }
+      .floating-note { left: 10px; }
+      .gallery { grid-template-columns: 1fr 1fr; }
+      .shot-main { grid-row: auto; grid-column: 1 / -1; }
+      .features { grid-template-columns: 1fr 1fr; }
+      .flow { grid-template-columns: 1fr 1fr; gap: 24px 0; }
+      .flow-item:nth-child(2)::after { display: none; }
+      .audience { grid-template-columns: 1fr 1fr; }
+      .cta-inner { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 720px) {
+      .wrap { width: calc(100% - 28px); }
+      .nav-links { display: none; }
+      .nav-inner { height: 64px; }
+      .nav-actions .btn-ghost { display: none; }
+      .nav-actions .btn { min-height: 38px; padding: 0 12px; font-size: 11px; }
+      .hero { padding: 45px 0 36px; }
+      .hero h1 span { white-space: nowrap; }
+      .hero h1 { font-size: 33px; }
+      .hero-actions .btn { width: 100%; }
+      .phone { width: 104px; }
+      .stats { grid-template-columns: 1fr 1fr; margin-top: 30px; }
+      section { padding: 54px 0; }
+      .section-head { text-align: left; margin-bottom: 24px; }
+      .section-head h2 { font-size: 29px; }
+      .gallery { grid-template-columns: 1fr; }
+      .mobile-pair { grid-template-columns: 1fr 1fr; gap: 9px; }
+      .mobile-pair .shot img { height: 300px; }
+      .features { grid-template-columns: 1fr; }
+      .flow { grid-template-columns: 1fr; gap: 21px; }
+      .flow-item::after { display: none; }
+      .audience { grid-template-columns: 1fr 1fr; }
+      .cta-band { padding: 44px 0; }
+      .footer-inner { display: block; }
+      .footer-links { justify-content: flex-start; margin-top: 14px; }
+    }
+    @media (max-width: 380px) {
+      .hero h1 { font-size: 30px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">产品展示页 · 商业授权 · <b>源码与安装包不公开分发</b></div>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top">
+        <img src="assets/favicon.svg" alt="轻域数字商城系统">
+        <span><strong>轻域数字商城系统</strong><small>QINGYU DIGITAL MALL</small></span>
+      </a>
+      <nav class="nav-links">
+        <a href="#screens">界面预览</a>
+        <a href="#features">核心能力</a>
+        <a href="#license">授权交付</a>
+        <a href="#faq">常见问题</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-ghost" href="https://fkw.qyhulian.cn/" target="_blank" rel="noopener">在线演示</a>
+        <a class="btn btn-primary" href="https://api.qyhulian.cn/" target="_blank" rel="noopener">购买授权</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow"><i></i>MULTI-VENDOR DIGITAL COMMERCE</span>
+            <h1>把数字商品，<br>做成一套可经营的<span>商城。</span></h1>
+            <p>轻域数字商城系统把多商户、数字商品、自动交付、订单售后、资金对账和独立部署放进同一套系统。买家下单，商户经营，平台统一管理。</p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="https://fkw.qyhulian.cn/" target="_blank" rel="noopener">打开在线演示 <span>→</span></a>
+              <a class="btn btn-ghost" href="https://api.qyhulian.cn/" target="_blank" rel="noopener">购买商业授权</a>
+            </div>
+            <div class="hero-note"><span>PHP 原生架构</span><span>多商户</span><span>自动发货</span><span>独立部署</span></div>
+          </div>
+          <div class="hero-visual">
+            <div class="browser">
+              <div class="browser-bar"><i></i><i></i><i></i><span>fkw.qyhulian.cn</span></div>
+              <img src="assets/01-storefront-home.jpg" alt="轻域数字商城系统买家端首页">
+            </div>
+            <div class="phone"><img src="assets/06-mobile-home.jpg" alt="移动端首页"></div>
+                      </div>
+        </div>
+        <div class="stats">
+          <div><b>3 端</b><span>买家 / 商户 / 平台</span></div>
+          <div><b>多商户</b><span>入驻、店铺、分账与结算</span></div>
+          <div><b>自动交付</b><span>卡密、资源、课程、权益</span></div>
+          <div><b>独立部署</b><span>授权码绑定，数据自主</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="screens">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">REAL INTERFACES, NOT MOCKUPS</span>
+          <h2>界面不是概念图，<br>是正在运行的经营系统。</h2>
+          <p>以下截图来自演示站实际页面。演示数据仅用于展示界面与流程，不代表真实交易。</p>
+        </div>
+        <div class="gallery">
+          <a class="shot shot-main" href="assets/01-storefront-home.jpg" target="_blank" rel="noopener">
+            <img src="assets/01-storefront-home.jpg" alt="买家端首页" loading="lazy">
+            <figcaption><b>买家端首页</b>数字商品展示、商户入驻入口与平台精选</figcaption>
+          </a>
+          <a class="shot" href="assets/02-merchant-dashboard.jpg" target="_blank" rel="noopener">
+            <img src="assets/02-merchant-dashboard.jpg" alt="商户工作台" loading="lazy">
+            <figcaption><b>商户工作台</b>经营概览、待办、资金与店铺数据</figcaption>
+          </a>
+          <a class="shot" href="assets/03-merchant-products.jpg" target="_blank" rel="noopener">
+            <img src="assets/03-merchant-products.jpg" alt="商品管理" loading="lazy">
+            <figcaption><b>商品管理</b>商品、库存、价格与上架状态</figcaption>
+          </a>
+        </div>
+        <div class="mobile-pair">
+          <a class="shot" href="assets/05-order-workbench.jpg" target="_blank" rel="noopener">
+            <img src="assets/05-order-workbench.jpg" alt="订单工作台" loading="lazy">
+            <figcaption><b>订单工作台</b>支付、交付、售后与批量处理</figcaption>
+          </a>
+          <a class="shot" href="assets/06-mobile-home.jpg" target="_blank" rel="noopener">
+            <img src="assets/06-mobile-home.jpg" alt="移动端首页" loading="lazy">
+            <figcaption><b>移动端体验</b>微信内分享、移动下单与查单</figcaption>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="feature-section">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">ONE SYSTEM, FULL JOURNEY</span>
+          <h2>从开店、成交到交付，<br>一套系统跑完。</h2>
+          <p>不是把几个脚本拼在一起，而是围绕数字商品经营设计的完整后台。</p>
+        </div>
+        <div class="features">
+          <article class="feature"><span class="num">01</span><h3>多商户平台</h3><p>商户入驻、平台审核、独立店铺、店铺装修、等级权益和平台公告。</p></article>
+          <article class="feature"><span class="num">02</span><h3>数字商品交付</h3><p>卡密、知识/资源、会员权益等商品类型，支持自动交付、人工交付和库存预警。</p></article>
+          <article class="feature"><span class="num">03</span><h3>订单与售后</h3><p>订单工作台、批量处理、交付中心、售后申请、工单和违规申诉。</p></article>
+          <article class="feature"><span class="num">04</span><h3>客服与消息</h3><p>站内消息、客服工作台、自动回复和消息通知，把咨询留在系统里。</p></article>
+          <article class="feature"><span class="num">05</span><h3>资金与对账</h3><p>商户钱包、资金流水、提现申请、对账单和平台结算记录。</p></article>
+          <article class="feature"><span class="num">06</span><h3>授权与部署</h3><p>独立部署、授权码绑定域名、续期、迁移和版本更新，由授权中心统一管理。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="license">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">COMMERCIAL LICENSE</span>
+          <h2>先看演示，再决定授权。</h2>
+          <p>本页面与 GitHub 仓库只做产品展示，不提供源码下载。购买后获取安装包、授权码和部署说明。</p>
+        </div>
+        <div class="flow">
+          <div class="flow-item"><b>01</b><h3>选择授权</h3><p>在授权中心选择适合的版本和授权周期。</p></div>
+          <div class="flow-item"><b>02</b><h3>获取交付</h3><p>支付回调验签后，获取安装包与授权码。</p></div>
+          <div class="flow-item"><b>03</b><h3>安装绑定</h3><p>按安装向导部署，授权码校验域名与名额。</p></div>
+          <div class="flow-item"><b>04</b><h3>长期经营</h3><p>续期、域名变更、服务器迁移和版本更新。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">WHO IT IS FOR</span>
+          <h2>适合认真经营数字内容的人。</h2>
+        </div>
+        <div class="audience">
+          <div><b>数字内容创作者</b><span>课程、文章、素材、模板、音效与电子书</span></div>
+          <div><b>软件与工具服务商</b><span>软件授权、激活码、插件、脚本与会员权益</span></div>
+          <div><b>资源与会员站</b><span>资源包、会员权益、社群权益与付费知识库</span></div>
+          <div><b>多商户平台运营者</b><span>商户入驻、分店管理、统一收银与平台结算</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="wrap cta-inner">
+        <div>
+          <h2>先打开演示，看看是不是你要的系统。</h2>
+          <p>真实界面 · 演示数据 · 商业授权 · 独立部署</p>
+        </div>
+        <div class="cta-actions">
+          <a class="btn btn-light" href="https://fkw.qyhulian.cn/" target="_blank" rel="noopener">在线演示 <span>→</span></a>
+          <a class="btn btn-primary" href="https://api.qyhulian.cn/" target="_blank" rel="noopener">购买授权</a>
+          <a class="btn" style="color:#dcecff;border-color:rgba(255,255,255,.22)" href="https://api.qyhulian.cn/index.php?r=store/contact" target="_blank" rel="noopener">联系我们</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">FAQ</span>
+          <h2>购买前，先把这些问题说清楚。</h2>
+        </div>
+        <div class="faq">
+          <details><summary>这是开源项目吗？</summary><p>不是。GitHub 仓库只用于产品展示和界面预览，不包含商城源码、数据库或安装包，也不采用 MIT/GPL 等开源许可。</p></details>
+          <details><summary>可以先体验吗？</summary><p>可以。演示站地址是 <a href="https://fkw.qyhulian.cn/" target="_blank" rel="noopener">fkw.qyhulian.cn</a>，演示数据仅用于展示界面和流程。</p></details>
+          <details><summary>支持多域名和服务器迁移吗？</summary><p>支持。同一套程序可以绑定多个域名，多个域名访问同一套商城和同一个数据库；服务器迁移时授权码不变，在新服务器重新安装并激活即可。具体额度以套餐为准。</p></details>
+          <details><summary>购买后能得到源码吗？</summary><p>购买获得的是商业授权、对应版本安装包、授权码和部署说明，不是无限制源码交付。二次开发、转售和再分发需要另行书面确认。</p></details>
+          <details><summary>安装环境有什么要求？</summary><p>原生 PHP 7.4–8.5、MySQL 5.7–8.0，Nginx 或 Apache，Linux 服务器。安装包内置环境检测和安装向导，详细步骤见授权用户文档。</p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-inner">
+        <div>
+          <strong>轻域数字商城系统</strong>
+          <span>多商户数字商品自动寄售平台 · 商业授权</span>
+        </div>
+        <div class="footer-links">
+          <a href="https://fkw.qyhulian.cn/" target="_blank" rel="noopener">在线演示</a>
+          <a href="https://api.qyhulian.cn/" target="_blank" rel="noopener">购买授权</a>
+          <a href="https://api.qyhulian.cn/index.php?r=store/contact" target="_blank" rel="noopener">联系我们</a>
+          <a href="https://api.qyhulian.cn/index.php?r=store/document&slug=license" target="_blank" rel="noopener">授权协议</a>
+        </div>
+      </div>
+      <div class="filing">
+        © 2026 轻域互联 · 保留所有权利 · 本页面为产品展示，不提供源码下载 · <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">冀ICP备2024068359号</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

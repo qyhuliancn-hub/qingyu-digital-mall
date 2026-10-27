@@ -1,0 +1,28 @@
+name: 演示反馈
+description: 对演示站、产品介绍或界面提出建议
+title: "[Feedback] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢反馈。请勿在公开 Issue 中填写密码、验证码、订单号、授权码、身份证信息或客户数据。
+  - type: textarea
+    id: content
+    attributes:
+      label: 反馈内容
+      description: 请描述你看到的问题或建议
+      placeholder: 页面地址、操作步骤、期望结果
+    validations:
+      required: true
+  - type: input
+    id: contact
+    attributes:
+      label: 联系方式（可选）
+      description: 如需回复，可留下邮箱或 QQ
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: 确认
+      options:
+        - label: 我确认内容不包含密码、验证码、订单号、授权码或客户隐私
+          required: true

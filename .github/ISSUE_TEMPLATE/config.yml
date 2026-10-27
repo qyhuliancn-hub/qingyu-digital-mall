@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 购买商业授权
+    url: https://api.qyhulian.cn/
+    about: 查看授权版本、下单购买和获取安装包
+  - name: 在线演示
+    url: https://fkw.qyhulian.cn/
+    about: 直接体验买家端和商户端界面
+  - name: 联系我们
+    url: https://api.qyhulian.cn/index.php?r=store/contact
+    about: 企业微信、QQ、邮箱和售后入口
