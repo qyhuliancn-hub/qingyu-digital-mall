@@ -9,6 +9,8 @@
 </p>
 
 <p align="center">
+  <a href="https://qyhuliancn-hub.github.io/qingyu-digital-mall/"><strong>产品介绍页</strong></a>
+  &nbsp;·&nbsp;
   <a href="https://fkw.qyhulian.cn/"><strong>在线演示</strong></a>
   &nbsp;·&nbsp;
   <a href="https://api.qyhulian.cn/"><strong>购买商业授权</strong></a>
@@ -181,6 +183,7 @@ This repository is a product showcase only. The source code and installation pac
 
 ## 联系与授权
 
+- 产品介绍页：[https://qyhuliancn-hub.github.io/qingyu-digital-mall/](https://qyhuliancn-hub.github.io/qingyu-digital-mall/)
 - 官网/授权中心：[https://api.qyhulian.cn/](https://api.qyhulian.cn/)
 - 在线演示：[https://fkw.qyhulian.cn/](https://fkw.qyhulian.cn/)
 - 联系我们：[https://api.qyhulian.cn/index.php?r=store/contact](https://api.qyhulian.cn/index.php?r=store/contact)
