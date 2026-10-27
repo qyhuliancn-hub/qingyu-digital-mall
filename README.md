@@ -19,8 +19,8 @@
 </p>
 
 <p align="center">
-  <img alt="PHP" src="https://img.shields.io/badge/PHP-7.4%20–%208.5-777BB4?style=flat-square">
-  <img alt="MySQL" src="https://img.shields.io/badge/MySQL-5.7%20–%208.0-4479A1?style=flat-square">
+  <img alt="PHP" src="https://img.shields.io/badge/PHP-7.4--8.5-777BB4?style=flat-square">
+  <img alt="MySQL" src="https://img.shields.io/badge/MySQL-5.7--8.0-4479A1?style=flat-square">
   <img alt="Self-hosted" src="https://img.shields.io/badge/Deployment-Self--hosted-1677ff?style=flat-square">
   <img alt="Commercial License" src="https://img.shields.io/badge/License-Commercial-0f9f7a?style=flat-square">
 </p>
